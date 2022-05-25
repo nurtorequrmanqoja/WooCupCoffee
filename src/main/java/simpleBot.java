@@ -32,6 +32,7 @@ public class simpleBot extends TelegramLongPollingBot{
 
 
                 String command = message.getText();
+                String adminChatId = "696669739";
 
                 //language keyboard button
                 ReplyKeyboardMarkup lanKeyboardMarkup = new ReplyKeyboardMarkup();
@@ -53,7 +54,7 @@ public class simpleBot extends TelegramLongPollingBot{
                 qazKeyboard.add(qazRow);
                 qazRow = new KeyboardRow();
 
-                if (!message.getChatId().toString().equals("696669739")){
+                if (!message.getChatId().toString().equals(adminChatId)){
                     qazRow.add("Админмен чат");
                 }
                 qazRow.add("Артқа");
@@ -71,7 +72,7 @@ public class simpleBot extends TelegramLongPollingBot{
                 rusKeyboard.add(rusRow);
                 rusRow = new KeyboardRow();
 
-                if (!message.getChatId().toString().equals("696669739")){
+                if (!message.getChatId().toString().equals(adminChatId)){
                     rusRow.add("Чат с админом");
                 }
                 rusRow.add("Назад");
@@ -193,7 +194,7 @@ public class simpleBot extends TelegramLongPollingBot{
 
                 }
                 else if (!command.equals("Аяқтау") && !command.equals("Завершение") && isAdmin){
-                    if (message.getChatId().toString().equals("696669739")){
+                    if (message.getChatId().toString().equals(adminChatId)){
                         String[] messageList = command.split(" ");
                         String clientChatId = messageList[0];
                         String messageToClient = "";
@@ -206,19 +207,19 @@ public class simpleBot extends TelegramLongPollingBot{
                                 .build());
 
                     }
-                    else if (!message.getChatId().toString().equals("696669739")){
+                    else if (!message.getChatId().toString().equals(adminChatId)){
                         String messageToAdmin = "Client name: " + message.getChat().getFirstName() +  " " + message.getChat().getLastName() + "\n"
                                 + "Client username: @" + message.getChat().getUserName() +"\n"
                                 + "Client chat ID: " + message.getChatId() +"\n"
                                 + "Client message: \"" + command + "\"";
                         execute(SendMessage.builder()
                                 .text(messageToAdmin)
-                                .chatId("696669739")
+                                .chatId(adminChatId)
                                 .build());
 
                     }
                 }
-                else if (command.equals("Аяқтау") && !message.getChatId().toString().equals("696669739")){
+                else if (command.equals("Аяқтау") && !message.getChatId().toString().equals(adminChatId)){
                     isAdmin = false;
                     execute(SendMessage.builder()
                             .chatId(message.getChatId().toString())
@@ -257,14 +258,14 @@ public class simpleBot extends TelegramLongPollingBot{
                             .build());
                 } else if (command.equals("Чат с админом") && !isAdmin) {
                     execute(SendMessage.builder()
-                            .text("Напишите свое сообщение в личный чат администратора @nurtorequrmanqoja\n или ниже\nАдмин ответит вам в ближайшее время:")
+                            .text("Напишите свое сообщение в личный чат администратора @nurtorequrmanqoja\nили ниже\nАдмин ответит вам в ближайшее время:")
                             .chatId(message.getChatId().toString())
                             .replyMarkup(rusAdminKeyboardMarkup)
                             .build());
                     isAdmin = true;
                 }
 
-                else if (command.equals("Завершение") && !message.getChatId().toString().equals("696669739")){
+                else if (command.equals("Завершение") && !message.getChatId().toString().equals(adminChatId)){
                     isAdmin = false;
                     execute(SendMessage.builder()
                             .chatId(message.getChatId().toString())
